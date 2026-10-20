@@ -25,7 +25,7 @@ The benchmarks are a separate package in [`bench/`](bench/README.md).
 
 ## Pull Requests
 
-- Every PR needs a [changeset](.changeset/README.md), which becomes the release note in `CHANGELOG.md`. Use `pnpm changeset --empty` for changes that should not appear in the release notes (CI, docs, ...).
+- Add a [changeset](.changeset/README.md) to a PR that should appear in the release notes in `CHANGELOG.md`. CI does not require it.
 - On PRs, CI applies `pnpm lint:fix` and `pnpm update:eslint-docs` and commits the result, so formatting and generated docs do not need to be fixed by hand.
 - CI also runs the tests on ESLint 9 and 10 and on Node.js 22, 24 and 26, checks the published types, and comments the coverage and the benchmark results on the PR.
 - A PR fails when it makes the benchmarks more than 5% slower than the baseline. When a change is expected to change the performance (e.g. adding a rule), run the `Benchmark: update baseline` workflow on the branch.
