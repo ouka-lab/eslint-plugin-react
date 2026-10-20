@@ -1,6 +1,10 @@
 name: "Types: check published types"
 
-on: [pull_request, push]
+on:
+  pull_request:
+  push:
+    branches:
+      - master
 
 permissions:
   contents: read
