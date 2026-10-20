@@ -16,24 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      # GITHUB_TOKEN can not push changes to .github/workflows/, and the PRs it opens do not trigger CI.
-      # The App needs Contents, Pull requests and Workflows: read & write
-      - id: app-token
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
-        with:
-          client-id: ${{ vars.RUNTIME_BUMP_APP_CLIENT_ID }}
-          private-key: ${{ secrets.RUNTIME_BUMP_APP_PRIVATE_KEY }}
-
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          # the action pushes with the App token, not the checkout token
+          # the action pushes with RUNTIME_BUMP_TOKEN, not the checkout token
           persist-credentials: false
           show-progress: false
 
       # no `post-update: pnpm install --lockfile-only`: none of these edits changes pnpm-lock.yaml
       - uses: ouka-lab/js-runtime-bump-action@190d178163bab01b3ee74f247d41fa3e14fbc40b # v0.1.0
         with:
-          github-token: ${{ steps.app-token.outputs.token }}
+          # fine-grained PAT with Contents, Pull requests and Workflows: read & write.
+          # GITHUB_TOKEN can not push changes to .github/workflows/, and the PRs it opens do not trigger CI.
+          github-token: ${{ secrets.RUNTIME_BUMP_TOKEN }}
           targets: |
             node
             pnpm
