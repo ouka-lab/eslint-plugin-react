@@ -1,0 +1,46 @@
+name: 'Runtime bump'
+
+# Opens a PR per target when Node.js / pnpm / ESLint move on, which Dependabot does not cover:
+# the CI matrices, engines.node, peerDependencies.eslint and devEngines.packageManager
+on:
+  schedule:
+    # Saturdays 10:00 JST, with Dependabot
+    - cron: '0 1 * * 6'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # GITHUB_TOKEN can not push changes to .github/workflows/, and the PRs it opens do not trigger CI.
+      # The App needs Contents, Pull requests and Workflows: read & write
+      - id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.RUNTIME_BUMP_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RUNTIME_BUMP_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # the action pushes with the App token, not the checkout token
+          persist-credentials: false
+          show-progress: false
+
+      # no `post-update: pnpm install --lockfile-only`: none of these edits changes pnpm-lock.yaml
+      - uses: ouka-lab/js-runtime-bump-action@190d178163bab01b3ee74f247d41fa3e14fbc40b # v0.1.0
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          targets: |
+            node
+            pnpm
+            npm:eslint
+          matrix: |
+            .github/workflows/eslint.yml#node-version=node
+            .github/workflows/eslint.yml#eslint=npm:eslint
+            .github/workflows/type-check.yml#eslint_version=npm:eslint
+          # same as minimumReleaseAge in pnpm-workspace.yaml and the Dependabot cooldown
+          minimum-release-age: '14'
