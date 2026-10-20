@@ -38,6 +38,8 @@ jobs:
         env:
           # only measure: the action compares the base branch and the PR by itself
           BENCH_NO_ASSERT: 1
+          # the base commit may pin another pnpm version in `devEngines.packageManager` (e.g. on a PR upgrading pnpm)
+          pnpm_config_pm_on_fail: ignore
         with:
           dir: ${{ runner.temp }}/bench
           source: bench/results

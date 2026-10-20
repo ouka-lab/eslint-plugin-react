@@ -4,5 +4,11 @@
   "access": "public",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "format": false
+  "format": false,
+  "changedFilePatterns": [
+    "index.js",
+    "index.d.ts",
+    "configs/**",
+    "lib/**"
+  ]
 }
