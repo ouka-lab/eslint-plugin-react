@@ -382,7 +382,7 @@ pnpm test      # vitest with coverage
 
 After changing a rule's docs or meta, run `pnpm update:eslint-docs` to regenerate the docs (CI also regenerates them on PRs).
 
-Every PR needs a [changeset](.changeset/README.md), which becomes the release note in `CHANGELOG.md` (CI checks it):
+Add a [changeset](.changeset/README.md) to a PR that should appear in the release notes in `CHANGELOG.md` (CI does not require it):
 
 ```sh
 pnpm changeset          # choose major / minor / patch and write the summary
