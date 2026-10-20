@@ -1,5 +1,11 @@
 # @ysknsid25/eslint-plugin-react
 
+## 1.0.1
+
+### Patch Changes
+
+- Fix regular expressions that could backtrack polynomially on long whitespace in `jsx-curly-brace-presence`, `jsx-indent`, `jsx-one-expression-per-line` and `no-invalid-html-attribute` (reported by CodeQL).
+
 ## 1.0.0
 
 ### Major Changes
