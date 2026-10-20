@@ -65,7 +65,8 @@ jobs:
         run: tar -tzf "$RUNNER_TEMP"/*.tgz
 
   changeset:
-    # every PR needs a changeset (`pnpm changeset`, or `pnpm changeset --empty` for changes without a release note)
+    # every PR changing the published code (`changedFilePatterns` in .changeset/config.json) needs a changeset
+    # (`pnpm changeset`, or `pnpm changeset --empty` for changes without a release note)
     if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
