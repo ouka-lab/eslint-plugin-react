@@ -27,7 +27,8 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - uses: ouka-lab/js-runtime-bump-action@190d178163bab01b3ee74f247d41fa3e14fbc40b # v0.1.0
+      # no `post-update: pnpm install --lockfile-only`: none of these edits changes pnpm-lock.yaml
+      - uses: ouka-lab/js-runtime-bump-action@4415ab8995246081ecc6f4641ba3b4e10b8be77b # v0.2.0
         with:
           # a pnpm bump changes packageManagerDependencies in pnpm-lock.yaml.
           # `--pm-on-fail=download` lets the old pnpm hand over to the newly pinned one instead of failing on `onFail: error`
