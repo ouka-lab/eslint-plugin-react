@@ -8,6 +8,7 @@
 [![Types](https://github.com/ouka-lab/eslint-plugin-react/actions/workflows/type-check.yml/badge.svg)](https://github.com/ouka-lab/eslint-plugin-react/actions/workflows/type-check.yml)
 [![License: MIT](https://img.shields.io/npm/l/@ysknsid25/eslint-plugin-react.svg)](https://github.com/ouka-lab/eslint-plugin-react/blob/master/LICENSE)
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ouka-lab/eslint-plugin-react?utm_source=oss&utm_medium=github&utm_campaign=ouka-lab%2Feslint-plugin-react&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
+[![Socket Badge](https://badge.socket.dev/npm/package/@ysknsid25/eslint-plugin-react/1.0.1)](https://badge.socket.dev/npm/package/@ysknsid25/eslint-plugin-react/1.0.1)
 
 React specific linting rules for `eslint`, as a maintained fork of [`eslint-plugin-react`](https://github.com/jsx-eslint/eslint-plugin-react).
 
