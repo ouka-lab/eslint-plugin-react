@@ -1,0 +1,33 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - name: Use Node.js 24.x
+      uses: ./.github/actions/setup-node-pnpm
+      with:
+        node-version: 24.x
+    - run: pnpm install --frozen-lockfile
+    - name: Test
+      run: pnpm test
+    # `prepack` builds the type declarations
+    - name: Build
+      run: pnpm pack --pack-destination "$RUNNER_TEMP"
+    # publish the tarball built by pnpm, so that npm does not run `prepack` again
+    - name: Publish
+      run: npm stage publish "$RUNNER_TEMP"/*.tgz --provenance
